@@ -269,7 +269,7 @@
   <!-- ===== PAGE HEADER ===== -->
   <div class="page-header">
     <h1>給与・インセンティブ制度ガイド</h1>
-    <p>営業職向け　／　入社後3か月ごとにコース選択が可能です</p>
+    <p>営業職向け　／　入社後の目標達成に応じてコース選択が可能です</p>
   </div>
 
   <!-- ===== 2 COURSES ===== -->
@@ -284,7 +284,7 @@
       <div class="course-meta">
         <div class="meta-row">
           <span class="meta-label">基本給</span>
-          <span class="meta-value">25〜30万円（目標達成度による）</span>
+          <span class="meta-value">30万円（目標達成度による）</span>
         </div>
         <div class="meta-row">
           <span class="meta-label">歩合率</span>
@@ -306,20 +306,20 @@
       <div class="course-label">Standard Course</div>
       <div class="course-name">スタンダードコース</div>
       <div class="course-desc">
-        等級・実績に応じた基本給と歩合率が適用されます。成果を積み上げるほど歩合率が上がる設計です。
+        役職・実績に応じた基本給と歩合率が適用されます。成果を積み上げるほど歩合率が上がる設計です。
       </div>
       <div class="course-meta">
         <div class="meta-row">
           <span class="meta-label">基本給</span>
-          <span class="meta-value">25万円〜（等級による）</span>
+          <span class="meta-value">25万円〜（役職による）</span>
         </div>
         <div class="meta-row">
           <span class="meta-label">歩合率</span>
-          <span class="meta-value">10〜18%（利益規模・等級による）</span>
+          <span class="meta-value">10〜18%（利益規模・役職による）</span>
         </div>
         <div class="meta-row">
           <span class="meta-label">エデュケーショナルINS</span>
-          <span class="meta-value">－2%〜0〜＋2%（等級による）</span>
+          <span class="meta-value">－2%〜0〜＋2%（役職による）</span>
         </div>
         <div class="meta-row">
           <span class="meta-label">アドバンスインセンティブ</span>
@@ -369,7 +369,7 @@
         </tr>
         <tr>
           <td>－1件</td>
-          <td class="num-amber">27万円</td>
+          <td class="num-gray">—</td>
           <td class="num-amber">27万円</td>
           <td class="num-amber">27万円</td>
           <td class="num-amber">27万円</td>
@@ -414,7 +414,7 @@
   <!-- ===== INCENTIVE TABLE ===== -->
   <div class="section-card">
     <div class="section-title">歩合率テーブル <span class="tag">スタンダードコース</span></div>
-    <div class="section-sub">年間利益規模と等級の組み合わせで歩合率が決まります。高い利益・高い等級ほど有利な設計です。</div>
+    <div class="section-sub">年間利益規模と役職の組み合わせで歩合率が決まります。高い利益・高い役職ほど有利な設計です。</div>
     <div class="incentive-grid">
       <div class="inc-block">
         <h4>社員〜係長</h4>
@@ -447,17 +447,17 @@
         </div>
       </div>
     </div>
-    <div class="footnote">※ 利益規模は当期（評価期間）内の累計粗利を基準とします。詳細は別途確認してください。</div>
+    <div class="footnote">※ 利益規模は当期（評価期間）内の累計粗利を基準とします。</div>
   </div>
 
   <!-- ===== GRADE TABLE ===== -->
   <div class="section-card">
-    <div class="section-title">等級別 基本給・目標一覧 <span class="tag">スタンダードコース</span></div>
-    <div class="section-sub">スタンダードコース適用時の等級ごとの基本給・目安利益・本数・ヘルプゲージ</div>
+    <div class="section-title">役職別 基本給・目標一覧 <span class="tag">スタンダードコース</span></div>
+    <div class="section-sub">スタンダードコース適用時の役職ごとの基本給・目安利益・本数・ヘルプゲージ</div>
     <table>
       <thead>
         <tr>
-          <th>等級</th>
+          <th>役職</th>
           <th>基本給（万円）</th>
           <th>目安利益（万円/年）</th>
           <th>目安販売（本/年）</th>
@@ -472,7 +472,7 @@
           <td>8,000</td>
           <td class="num-gray">—</td>
           <td class="num-gray">—</td>
-          <td class="num-gray">—</td>
+          <td>事業部インセンティブ</td>
         </tr>
         <tr>
           <td>次長</td>
@@ -480,7 +480,7 @@
           <td>5,000</td>
           <td>18</td>
           <td>22</td>
-          <td class="num-gray">—</td>
+          <td>事業部インセンティブ</td>
         </tr>
         <tr>
           <td>課長</td>
@@ -527,7 +527,7 @@
     <div class="footnote">
       ※ 基本給は目安範囲です。採用時・昇格時の評価によって決定されます。<br>
       ※ 事業部インセンティブ（歩合）は上の歩合率テーブルを参照してください。<br>
-      ※ 「—」は当該等級での設定なし。
+      ※ 「—」は当該役職での設定なし。
     </div>
   </div>
 
@@ -547,7 +547,7 @@
         <tr>
           <td>基本給</td>
           <td class="starter-col">25〜30万円（目標達成度による）</td>
-          <td class="standard-col">25〜50万円+（等級・評価による）</td>
+          <td class="standard-col">25〜50万円+（役職・評価による）</td>
         </tr>
         <tr>
           <td>歩合率（基本）</td>
@@ -557,12 +557,7 @@
         <tr>
           <td>エデュケーショナルINS</td>
           <td class="starter-col">－2%（一律）</td>
-          <td class="standard-col">等級により ±2%</td>
-        </tr>
-        <tr class="row-highlight">
-          <td>実質歩合率</td>
-          <td class="starter-col" style="color:#c62828;">実質 3%</td>
-          <td class="standard-col">等級・利益規模による</td>
+          <td class="standard-col">役職により ±2%</td>
         </tr>
         <tr>
           <td>アドバンスINS（事業部等）</td>
@@ -572,11 +567,11 @@
         <tr>
           <td>安定性（基本給の保証感）</td>
           <td class="starter-col"><span class="check">✔ 入社直後から30万円</span></td>
-          <td class="standard-col">等級到達まで低め</td>
+          <td class="standard-col">役職到達まで低め</td>
         </tr>
         <tr>
           <td>成果が出たときの伸びしろ</td>
-          <td class="starter-col">小さい（上限5%固定）</td>
+          <td class="starter-col">小さい</td>
           <td class="standard-col"><span class="check">✔ 大きい（最大18%+αINS）</span></td>
         </tr>
       </tbody>
