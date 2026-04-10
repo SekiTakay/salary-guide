@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>給与制度ガイド</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Helvetica Neue', 'Hiragino Kaku Gothic ProN', sans-serif;
+    background: #f2f1ed;
+    color: #1a1a1a;
+    padding: 40px 20px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* ===== HEADER ===== */
+  .page-header {
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 14px;
+    padding: 28px 36px;
+  }
+  .page-header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.03em; margin-bottom: 6px; }
+  .page-header p  { font-size: 12px; color: #aaa; }
+
+  /* ===== COURSE SELECTOR ===== */
+  .course-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .course-card {
+    border-radius: 14px;
+    padding: 24px 28px;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .course-card.standard {
+    background: #fff;
+    border-color: #1a1a1a;
+  }
+  .course-card.starter {
+    background: #fff8f0;
+    border-color: #d97706;
+  }
+  .course-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .course-card.standard .course-label { color: #555; }
+  .course-card.starter  .course-label { color: #b45309; }
+
+  .course-name {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .course-card.standard .course-name { color: #1a1a1a; }
+  .course-card.starter  .course-name { color: #92400e; }
+
+  .course-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    min-height: 52px;
+  }
+  .course-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #eee;
+    padding-top: 6px;
+  }
+  .meta-label { font-size: 11px; color: #888; }
+  .meta-value { font-size: 12.5px; font-weight: 600; }
+  .course-card.starter .meta-row { border-top-color: #fde8c8; }
+
+  .switch-badge {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: #d97706;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+  }
+  .course-card.standard .switch-badge { background: #1a1a1a; }
+
+  /* ===== SECTION CARD ===== */
+  .section-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 26px 32px;
+  }
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    background: #f0f0ec;
+    color: #666;
+    letter-spacing: 0.06em;
+  }
+  .section-sub {
+    font-size: 11.5px;
+    color: #888;
+    margin-bottom: 18px;
+  }
+
+  /* ===== GRADE TABLE ===== */
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead th {
+    background: #f7f6f2;
+    font-size: 11px;
+    font-weight: 700;
+    color: #555;
+    padding: 9px 12px;
+    text-align: center;
+    border-bottom: 2px solid #e5e3dc;
+    white-space: nowrap;
+  }
+  thead th:first-child { text-align: left; border-radius: 8px 0 0 0; }
+  thead th:last-child  { border-radius: 0 8px 0 0; }
+  tbody td {
+    padding: 9px 12px;
+    border-bottom: 1px solid #f0eee8;
+    text-align: center;
+    color: #333;
+    vertical-align: middle;
+  }
+  tbody td:first-child { text-align: left; font-weight: 600; color: #1a1a1a; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: #fafaf7; }
+
+  .num-green  { color: #2e7d32; font-weight: 700; }
+  .num-amber  { color: #b45309; font-weight: 700; }
+  .num-gray   { color: #aaa; }
+
+  /* highlight rows */
+  .row-bucho td  { background: #fafaf7; }
+  .row-kakarichou td, .row-shain td { background: #fff; }
+
+  /* ===== INCENTIVE TABLE ===== */
+  .incentive-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 4px;
+  }
+  .inc-block {
+    border-radius: 10px;
+    padding: 18px 20px;
+    border: 1.5px solid #e5e3dc;
+  }
+  .inc-block h4 {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+  }
+  .inc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 12px;
+  }
+  .inc-tier { color: #888; }
+  .inc-rate { font-weight: 700; font-size: 13.5px; }
+  .rate-low  { color: #1a1a1a; }
+  .rate-mid  { color: #1a6b99; }
+  .rate-high { color: #0f5132; }
+
+  /* ===== COURSE COMPARE ===== */
+  .compare-table table { margin-top: 4px; }
+  .compare-table thead th { background: #f7f6f2; }
+  .standard-col { background: #f7f9fb; }
+  .starter-col  { background: #fffbf4; }
+  .th-standard  { color: #1a1a1a !important; }
+  .th-starter   { color: #92400e !important; }
+  .check { color: #2e7d32; font-weight: 700; }
+  .cross { color: #c62828; font-weight: 700; }
+  .row-highlight td { font-weight: 600; }
+
+  /* ===== FLOW ===== */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+  .flow-step {
+    flex: 1;
+    min-width: 120px;
+    background: #f7f6f2;
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 11.5px;
+    color: #333;
+    position: relative;
+  }
+  .flow-step strong { display: block; font-size: 12.5px; color: #1a1a1a; margin-bottom: 3px; }
+  .flow-arrow {
+    width: 28px;
+    text-align: center;
+    color: #bbb;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .flow-step.highlight {
+    background: #d97706;
+    color: #fff;
+  }
+  .flow-step.highlight strong { color: #fff; }
+
+  /* ===== FOOTNOTE ===== */
+  .footnote {
+    font-size: 11px;
+    color: #999;
+    line-height: 1.8;
+    border-top: 1px solid #e5e3dc;
+    padding-top: 14px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .course-grid { grid-template-columns: 1fr; }
+    .incentive-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===== PAGE HEADER ===== -->
+  <div class="page-header">
+    <h1>給与・インセンティブ制度ガイド</h1>
+    <p>営業職向け　／　入社後の目標達成に応じてコース選択が可能です</p>
+  </div>
+
+  <!-- ===== 2 COURSES ===== -->
+  <div class="course-grid">
+    <div class="course-card starter">
+      <span class="switch-badge">スターター</span>
+      <div class="course-label">Starter Course</div>
+      <div class="course-name">スターターコース</div>
+      <div class="course-desc">
+        入社直後から30万円の基本給を保証。3か月ごとの目標未達で変動あり。歩合はシンプルな固定設計。
+      </div>
+      <div class="course-meta">
+        <div class="meta-row">
+          <span class="meta-label">基本給</span>
+          <span class="meta-value">30万円（目標達成度による）</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">歩合率</span>
+          <span class="meta-value">5%（一律）</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">エデュケーショナルINS</span>
+          <span class="meta-value" style="color:#c62828;">－2%（一律）</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">アドバンスインセンティブ</span>
+          <span class="meta-value">なし</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card standard">
+      <span class="switch-badge">スタンダード</span>
+      <div class="course-label">Standard Course</div>
+      <div class="course-name">スタンダードコース</div>
+      <div class="course-desc">
+        役職・実績に応じた基本給と歩合率が適用されます。成果を積み上げるほど歩合率が上がる設計です。
+      </div>
+      <div class="course-meta">
+        <div class="meta-row">
+          <span class="meta-label">基本給</span>
+          <span class="meta-value">25万円〜（役職による）</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">歩合率</span>
+          <span class="meta-value">10〜18%（利益規模・役職による）</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">エデュケーショナルINS</span>
+          <span class="meta-value">－2%〜0〜＋2%（役職による）</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">アドバンスインセンティブ</span>
+          <span class="meta-value">あり（事業部・エデュケーショナル）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== COURSE SWITCH FLOW ===== -->
+  <div class="section-card">
+    <div class="section-title">コース変更のタイミング <span class="tag">選択フロー</span></div>
+    <div class="section-sub">入社後3か月ごとの評価タイミングで、いずれかのコースを選択できます。</div>
+    <div class="flow">
+      <div class="flow-step"><strong>入社</strong>スターターコースで開始</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>3か月後</strong>目標達成を確認</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight"><strong>コース選択</strong>スターター or スタンダード</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><strong>以降</strong>6・9・12か月後も同様に選択可</div>
+    </div>
+    <div class="footnote">※ コース変更はあくまで目標達成のタイミングに限ります。未達の期間はスターターコースのまま継続します。</div>
+  </div>
+
+  <!-- ===== STARTER COURSE DETAIL ===== -->
+  <div class="section-card">
+    <div class="section-title">基本給変動ルール <span class="tag">スターターコース</span></div>
+    <div class="section-sub">3か月ごとの仕入目標件数に対する達成状況で基本給が変動します</div>
+    <table>
+      <thead>
+        <tr>
+          <th>未達件数</th>
+          <th>3か月後<br><span style="font-weight:400;color:#aaa;">目標1件</span></th>
+          <th>6か月後<br><span style="font-weight:400;color:#aaa;">目標2件</span></th>
+          <th>9か月後<br><span style="font-weight:400;color:#aaa;">目標4件</span></th>
+          <th>12か月後<br><span style="font-weight:400;color:#aaa;">目標6件</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-highlight">
+          <td style="color:#2e7d32;">目標達成</td>
+          <td class="num-green">30万円</td>
+          <td class="num-green">30万円</td>
+          <td class="num-green">30万円</td>
+          <td class="num-green">30万円</td>
+        </tr>
+        <tr>
+          <td>－1件</td>
+          <td class="num-gray">—</td>
+          <td class="num-amber">27万円</td>
+          <td class="num-amber">27万円</td>
+          <td class="num-amber">27万円</td>
+        </tr>
+        <tr>
+          <td>－2件</td>
+          <td class="num-gray">—</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+        </tr>
+        <tr>
+          <td>－3件</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+        </tr>
+        <tr>
+          <td>－4件</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+        </tr>
+        <tr>
+          <td>－5件</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td style="color:#c62828;font-weight:600;">25万円</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footnote">
+      ※ 基本給の下限は25万円です。<br>
+      ※「—」はその評価期の目標件数上、発生しない区分です。<br>
+      ※ 目標達成のタイミングでスタンダードコースへの切り替えを選択できます。
+    </div>
+  </div>
+
+  <!-- ===== INCENTIVE TABLE ===== -->
+  <div class="section-card">
+    <div class="section-title">歩合率テーブル <span class="tag">スタンダードコース</span></div>
+    <div class="section-sub">年間利益規模と役職の組み合わせで歩合率が決まります。高い利益・高い役職ほど有利な設計です。</div>
+    <div class="incentive-grid">
+      <div class="inc-block">
+        <h4>社員〜係長</h4>
+        <div class="inc-row">
+          <span class="inc-tier">〜3,000万円</span>
+          <span class="inc-rate rate-low">10%</span>
+        </div>
+        <div class="inc-row">
+          <span class="inc-tier">3,000〜6,000万円</span>
+          <span class="inc-rate rate-low">10%</span>
+        </div>
+        <div class="inc-row">
+          <span class="inc-tier">6,000万円〜</span>
+          <span class="inc-rate rate-mid">12%</span>
+        </div>
+      </div>
+      <div class="inc-block">
+        <h4>課長代理〜部長</h4>
+        <div class="inc-row">
+          <span class="inc-tier">〜3,000万円</span>
+          <span class="inc-rate rate-mid">12%</span>
+        </div>
+        <div class="inc-row">
+          <span class="inc-tier">3,000〜6,000万円</span>
+          <span class="inc-rate rate-mid">15%</span>
+        </div>
+        <div class="inc-row">
+          <span class="inc-tier">6,000万円〜</span>
+          <span class="inc-rate rate-high">18%</span>
+        </div>
+      </div>
+    </div>
+    <div class="footnote">※ 利益規模は当期（評価期間）内の累計粗利を基準とします。</div>
+  </div>
+
+  <!-- ===== GRADE TABLE ===== -->
+  <div class="section-card">
+    <div class="section-title">役職別 基本給・目標一覧 <span class="tag">スタンダードコース</span></div>
+    <div class="section-sub">スタンダードコース適用時の役職ごとの基本給・目安利益・本数・ヘルプゲージ</div>
+    <table>
+      <thead>
+        <tr>
+          <th>役職</th>
+          <th>基本給（万円）</th>
+          <th>目安利益（万円/年）</th>
+          <th>目安販売（本/年）</th>
+          <th>目安仕入（本/年）</th>
+          <th>ヘルプゲージ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row-bucho">
+          <td>部長</td>
+          <td class="num-green">50〜</td>
+          <td>8,000</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td>事業部インセンティブ</td>
+        </tr>
+        <tr>
+          <td>次長</td>
+          <td class="num-green">35〜</td>
+          <td>5,000</td>
+          <td>18</td>
+          <td>22</td>
+          <td>事業部インセンティブ</td>
+        </tr>
+        <tr>
+          <td>課長</td>
+          <td class="num-green">30〜</td>
+          <td>3,500</td>
+          <td>13</td>
+          <td>18</td>
+          <td>エデュケーショナル +2%</td>
+        </tr>
+        <tr>
+          <td>課長代理</td>
+          <td class="num-amber">29〜30</td>
+          <td>3,000</td>
+          <td>10</td>
+          <td>15</td>
+          <td>エデュケーショナル +2%</td>
+        </tr>
+        <tr>
+          <td>係長</td>
+          <td class="num-amber">27〜29</td>
+          <td>2,500</td>
+          <td>8</td>
+          <td>12</td>
+          <td class="num-gray">—</td>
+        </tr>
+        <tr>
+          <td>主任</td>
+          <td class="num-amber">27〜29</td>
+          <td>2,500</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td>エデュケーショナル -2%</td>
+        </tr>
+        <tr class="row-shain">
+          <td>社員</td>
+          <td>25</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td class="num-gray">—</td>
+          <td>エデュケーショナル -2%</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footnote">
+      ※ 基本給は目安範囲です。採用時・昇格時の評価によって決定されます。<br>
+      ※ 事業部インセンティブ（歩合）は上の歩合率テーブルを参照してください。<br>
+      ※ 「—」は当該役職での設定なし。
+    </div>
+  </div>
+
+  <!-- ===== COURSE COMPARISON ===== -->
+  <div class="section-card compare-table">
+    <div class="section-title">コース比較まとめ</div>
+    <div class="section-sub">どちらのコースが自分に合うか確認してください</div>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th class="th-starter">スターターコース</th>
+          <th class="th-standard">スタンダードコース</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>基本給</td>
+          <td class="starter-col">30万円（目標達成度による）</td>
+          <td class="standard-col">25〜50万円+（役職・評価による）</td>
+        </tr>
+        <tr>
+          <td>歩合率（基本）</td>
+          <td class="starter-col">5%（固定）</td>
+          <td class="standard-col">10〜18%</td>
+        </tr>
+        <tr>
+          <td>エデュケーショナルINS</td>
+          <td class="starter-col">－2%（一律）</td>
+          <td class="standard-col">役職により ±2%</td>
+        </tr>
+        <tr>
+          <td>アドバンスINS（事業部等）</td>
+          <td class="starter-col"><span class="cross">✘ なし</span></td>
+          <td class="standard-col"><span class="check">✔ あり</span></td>
+        </tr>
+        <tr>
+          <td>安定性（基本給の保証感）</td>
+          <td class="starter-col"><span class="check">✔ 入社直後から30万円</span></td>
+          <td class="standard-col">役職到達まで低め</td>
+        </tr>
+        <tr>
+          <td>成果が出たときの伸びしろ</td>
+          <td class="starter-col">小さい</td>
+          <td class="standard-col"><span class="check">✔ 大きい（最大18%+αINS）</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footnote">
+      ※ アドバンスインセンティブ（事業部インセンティブ・エデュケーショナルプラス）はスタンダードコースのみ対象です。<br>
+      ※ スターターコースの歩合5%からエデュケーショナルインセンティブ -2% が差し引かれ、実質歩合率は3%になります。<br>
+      ※ コースは3か月ごとの目標達成タイミングで変更できます。未達時は変更不可。
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
